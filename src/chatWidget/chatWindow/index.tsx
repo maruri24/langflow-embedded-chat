@@ -37,7 +37,8 @@ export default function ChatWindow({
   height = 650,
   tweaks,
   sessionId,
-  additional_headers
+  additional_headers,
+  chat_history
 }: {
   api_key?: string;
   output_type: string,
@@ -70,6 +71,7 @@ export default function ChatWindow({
   height?: number;
   sessionId: React.MutableRefObject<string>;
   additional_headers?: { [key: string]: string };
+  chat_history?: { [key: string]: any };
 
 }) {
   const [value, setValue] = useState<string>("");
@@ -88,6 +90,14 @@ export default function ChatWindow({
         )
       );
   }, [triggerRef, width, height, position]);
+
+  useEffect(() => {
+    if (chat_history){
+      chat_history.forEach( (msg: ChatMessageType) => {
+        addMessage(msg);
+      });
+    }
+  },[]);
 
   /* Initial listener for loss of focus that refocuses User input after a small delay */
 

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ChatTrigger from "./chatTrigger";
 import ChatWindow from "./chatWindow";
 import { ChatMessageType } from "../types/chatWidget";
@@ -33,6 +33,7 @@ export default function ChatWidget({
   additional_headers,
   session_id,
   start_open=false,
+  chat_history,
 }: {
   api_key?: string;
   input_value: string,
@@ -63,6 +64,7 @@ export default function ChatWidget({
   additional_headers?: { [key: string]: string };
   session_id?: string;
   start_open?: boolean;
+  chat_history?: { [key: string]: any };
 }) {
   const [open, setOpen] = useState(start_open);
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
@@ -2179,6 +2181,7 @@ input::-ms-input-placeholder { /* Microsoft Edge */
         position={chat_position}
         sessionId={sessionId}
         additional_headers={additional_headers}
+        chat_history={chat_history}
       />
     </div>
   );
